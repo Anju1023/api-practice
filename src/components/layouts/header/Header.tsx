@@ -4,9 +4,12 @@ export default function Header() {
 	return (
 		<header className="container mx-auto bg-gradient-to-l to-pink-400 from-purple-400 text-white flex justify-between items-center p-6 mb-4">
 			<div>
-				<h1 className="text-4xl font-bold hover:text-pink-200 hover:scale-105 transition-all duration-300">
+				<Link
+					href={'/'}
+					className="text-4xl font-bold hover:text-pink-200 hover:scale-105 transition-all duration-300"
+				>
 					ページタイトル
-				</h1>
+				</Link>
 			</div>
 			<nav>
 				<ul className="flex gap-4 text-xl">
@@ -27,6 +30,12 @@ export default function Header() {
 						className="hover:text-pink-200 hover:scale-105 transition-all duration-300"
 					>
 						API
+					</Link>
+					<Link
+						href={'/calculator'}
+						className="hover:text-pink-200 hover:scale-105 transition-all duration-300"
+					>
+						Calculator
 					</Link>
 				</ul>
 			</nav>
