@@ -1,7 +1,7 @@
 export default function Footer() {
 	return (
-		<footer>
-			<div></div>
+		<footer className="container">
+			<div>Footer</div>
 		</footer>
 	);
 }
