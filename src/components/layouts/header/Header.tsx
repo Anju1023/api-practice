@@ -14,10 +14,10 @@ export default function Header() {
 			<nav>
 				<ul className="flex gap-4 text-xl">
 					<Link
-						href={'/about'}
+						href={'/order'}
 						className="hover:text-pink-200 hover:scale-105 transition-all duration-300"
 					>
-						About
+						Order
 					</Link>
 					<Link
 						href={'/profile'}
