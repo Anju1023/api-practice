@@ -287,15 +287,172 @@ export default function BakeryApp() {
 
 	if (showConfirmation) {
 		return (
-			<div>
-				<div>
-					<div>🥖✨</div>
-					<h2>ご注文ありがとうございます！</h2>
-					<p>焼き立てパンをお楽しみください</p>
-					<p>お会計: ￥{totalPrice}</p>
-					<button onClick={clearOrder}>新しいご注文</button>
+			<div className="min-h-screen bg-gradient-to-br from-yellow-300 via-orange-400 to-red-400 flex items-center justify-center p-4">
+				<div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
+					<div className="text-6xl mb-4">🥖✨</div>
+					<h2 className="text-2xl font-bold text-gray-800 mb-4">
+						ご注文ありがとうございます！
+					</h2>
+					<p className="text-gray-600 mb-2">焼き立てパンをお楽しみください</p>
+					<p className="text-xl font-semibold text-gray-800 mb-6">
+						お会計: ￥{totalPrice}
+					</p>
+					<button
+						onClick={clearOrder}
+						className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-xl transition-colors"
+					>
+						新しいご注文
+					</button>
 				</div>
 			</div>
 		);
 	}
+
+	return (
+		<div className="min-h-screen bg-gradient-to-br from-yellow-200 via-orange-300 to-red-300 p-4">
+			<div className="max-w-7xl mx-auto">
+				<div className="text-center mb-8">
+					<h1 className="text-4xl font-bold text-white mb-2">
+						🥖 ベーカリー 🥖
+					</h1>
+					<p className="text-white text-lg">
+						毎日焼き立て♪ 愛情たっぷりのパン屋さん
+					</p>
+				</div>
+
+				<div className="grid lg:grid-cols-4 gap-6">
+					{/* メニュー部分 */}
+					<div className="lg:col-span-3">
+						<div className="bg-white rounded-3xl shadow-xl p-6">
+							{/* 甘いパン */}
+							<div className="mb-8">
+								<h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+									🍈 甘いパン
+								</h2>
+
+								<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+									{sweetBreads.map((item) => (
+										<BreadButton
+											key={item.id}
+											item={item}
+											onClick={() => addToOrder(item)}
+										/>
+									))}
+								</div>
+							</div>
+
+							{/* お食事パン */}
+							<div className="mb-8">
+								<h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+									🍛 お食事パン
+								</h2>
+								<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+									{mealBreads.map((item) => (
+										<BreadButton
+											key={item.id}
+											item={item}
+											onClick={() => addToOrder(item)}
+										/>
+									))}
+								</div>
+							</div>
+
+							{/* ハード系パン */}
+							<div className="mb-8">
+								<h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+									🥖 ハード系パン
+								</h2>
+								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+									{hardBreads.map((item) => (
+										<BreadButton
+											key={item.id}
+											item={item}
+											onClick={() => addToOrder(item)}
+										/>
+									))}
+								</div>
+							</div>
+
+							{/* サンドイッチ */}
+							<div>
+								<h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+									🥪 サンドイッチ
+								</h2>
+								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+									{sandwiches.map((item) => (
+										<BreadButton
+											key={item.id}
+											item={item}
+											onClick={() => addToOrder(item)}
+										/>
+									))}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					{/* 注文確認部分 */}
+					<div className="lg:col-span-1">
+						<div className="bg-white rounded-3xl shadow-xl p-6 sticky top-4">
+							<h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+								🛒 お買い物かご
+							</h2>
+
+							{orders.length === 0 ? (
+								<div className="text-center py-8">
+									<div className="text-4xl mb-2">🥖</div>
+									<p className="text-gray-500">
+										お好きなパンを
+										<br />
+										選んでくださいね♪
+									</p>
+								</div>
+							) : (
+								<div className="space-y-3 mb-6">
+									{orders.map((order) => (
+										<OrderItemDisplay
+											key={order.item.id}
+											orderItem={order}
+											onAdd={() => increaseQuantity(order.item.id)}
+											onRemove={() => decreaseQuantity(order.item.id)}
+										/>
+									))}
+								</div>
+							)}
+
+							{orders.length > 0 && (
+								<>
+									<div className="border-t pt-4 mb-6">
+										<div className="flex justify-between items-center text-xl font-bold">
+											<span>合計</span>
+											<span className="text-orange-600">￥{totalPrice}</span>
+										</div>
+										<p className="text-sm text-gray-500 mt-1">
+											{orders.reduce((sum, order) => sum + order.quantity, 0)}
+											個のパン
+										</p>
+									</div>
+
+									<div className="space-y-3">
+										<button
+											onClick={confirmOrder}
+											className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-xl transition-colors shadow-lg"
+										>
+											🛒 レジに進む
+										</button>
+										<button
+											onClick={clearOrder}
+											className="w-full bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-4 rounded-xl transition-colors"
+										>
+											かごを空にする
+										</button>
+									</div>
+								</>
+							)}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }

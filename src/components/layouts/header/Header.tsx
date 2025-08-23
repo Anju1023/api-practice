@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Header() {
 	return (
-		<header className="container mx-auto bg-gradient-to-l to-pink-400 from-purple-400 text-white flex justify-between items-center p-6 mb-4">
+		<header className="mx-auto bg-gradient-to-l to-pink-400 from-purple-400 text-white flex justify-between items-center p-6 mb-4">
 			<div>
 				<Link
 					href={'/'}
